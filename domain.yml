@@ -1,0 +1,142 @@
+version: '3.1'
+intents:
+- affirm
+- bot_challenge
+- buy_stock
+- deny
+- fallback
+- filter
+- goodbye
+- greet
+- inform
+- navigate
+- nlu_fallback
+- request_stock_form
+- search
+- sell_stock
+- stock_price
+entities:
+- stock_company
+- query
+- stock_number
+- filtered_obj
+- criteria
+- page
+- stock_list
+- stock_map
+slots:
+  stock_company:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: stock_company
+      intent:
+      - buy_stock
+      - sell_stock
+      - stock_price
+  stock_number:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: stock_number
+      intent:
+      - buy_stock
+      - sell_stock
+  filtered_obj:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: filtered_obj
+      intent: filter
+  page:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: page
+      intent: navigate
+  criteria:
+    type: list
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: criteria
+      intent: filter
+  stock_list:
+    type: list
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: stock_list
+      intent: filter
+  query:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: query
+      intent: search
+  stock_map:
+    type: list
+    mappings:
+    - type: from_entity
+      entity: stock_map
+forms:
+  buy_stock_form:
+    required_slots:
+    - stock_company
+    - stock_number
+responses:
+  utter_default:
+  - text: I didn't understand what you said. Can you please rephrase?
+  - text: I'm sorry, I'm not sure what you mean.
+  - text: I'm having trouble understanding you. Can you please try again?
+  utter_greet:
+  - text: Hey! How are you?
+  - text: hello, how can help you today?
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_navigate:
+  - text: Navigating to {page}.
+  utter_sell_stock:
+  - text: handling command...
+  utter_submit:
+  - text: handling your order...
+  utter_ask_stock_company:
+  - text: What is the name of the company?
+  utter_ask_stock_number:
+  - text: How many shares would you like to buy or sell?
+  utter_confirm_stock_company:
+  - text: So you want to {intent} {stock_number} shares of {stock_company}, is that correct?
+  utter_confirm_stock_number:
+  - text: So you want to {intent} {stock_number} shares of {stock_company}, is that correct?
+  utter_ask_missing_parameters:
+  - text: 'Please provide the missing parameters: {missing_params}'
+  utter_buy_stock:
+  - text: Thank you for your purchase of {stock_number} shares of {stock_company}!
+  utter_filter:
+  - text: filtering {filtered_obj} ...
+  - text: executing filtering command...
+  - text: handling command...
+  utter_search:
+  - text: searching for {query} ...
+  - text: executing searching command...
+  - text: handling command...
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+actions:
+- action_retrieve_data
+- action_stock_price
+- action_navigate
+- action_filter
+- action_other
+- action_search
+- action_sell_stock
+- action_buy_stock
+- action_check_parameter
+- action_greet
+- action_default_fallback

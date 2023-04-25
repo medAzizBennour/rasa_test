@@ -1,0 +1,47 @@
+version: "3.1"
+
+- rule: goodbye action
+  steps:
+    - intent: goodbye
+    - action: action_other
+- rule: fallback action
+  steps:
+    - intent: nlu_fallback
+    - action: action_default_fallback
+
+- rule:  greet action
+  steps:
+    - intent: greet
+    - action: action_other
+
+
+- rule:  buy stock action
+  steps:
+    - intent: buy_stock
+    - action: action_buy_stock
+
+- rule : navigate action
+  steps:
+    - intent: navigate
+    - action: action_navigate
+
+
+- rule : stock price action
+  steps:
+    - intent: stock_price
+    - action: action_stock_price
+
+- rule : filter action
+  steps:
+    - intent: filter
+    - action: action_filter
+
+- rule: search action
+  steps:
+    - intent: search
+    - action: action_search
+
+- rule: sell action
+  steps:
+    - intent: sell_stock
+    - action: action_sell_stock

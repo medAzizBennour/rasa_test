@@ -1,0 +1,342 @@
+version: "3.1"
+
+stories:
+
+- story: interactive greet
+  steps: 
+  - intent: greet
+  - action: action_other
+
+- story: interactive goodbye
+  steps: 
+  - intent: goodbye
+  - action: action_other
+
+- story: navigate_path
+  steps:
+  - intent: navigate
+  - action: action_navigate
+
+- story: buy stock with missing parameters
+  steps:
+  - intent: buy_stock
+  - action: action_buy_stock
+  - slot_was_set:
+    - requested_slot: stock_company
+  - slot_was_set:
+    - requested_slot: tesla
+  - slot_was_set:
+    - requested_slot: stock_number
+  - slot_was_set:
+    - requested_slot: 100
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+
+- story: buy stock with missing company
+  steps:
+  - intent: buy_stock
+  - action: action_buy_stock
+  - slot_was_set:
+    - requested_slot: stock_company
+  - slot_was_set:
+    - requested_slot: nvidia
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+
+- story: buy stock with missing number
+  steps:
+  - intent: buy_stock
+  - action: action_buy_stock
+  - slot_was_set:
+    - requested_slot: stock_number
+  - slot_was_set:
+    - requested_slot: 20
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+
+- story: interactive_story_1
+  steps:
+  - intent: search
+    entities:
+    - query: the importance of trading
+  - action: action_search
+  - slot_was_set:
+    - query: the importance of trading
+  - intent: search
+    entities:
+    - query: information about stop loss orders
+
+
+
+- story: interactive_story_1
+  steps:
+  - intent: sell_stock
+  - action: action_sell_stock
+  - intent: sell_stock
+    entities:
+    - stock_number: '10'
+    - stock_company: nvidia
+  - slot_was_set:
+    - stock_company: nvidia
+  - slot_was_set:
+    - stock_number: '10'
+  - action: action_sell_stock
+  - intent: search
+    entities:
+    - query: meaning
+    - query: trading
+  - slot_was_set:
+    - query: trading
+  - intent: search
+    entities:
+    - query: the meaning of trading
+  - action: action_search
+  - slot_was_set:
+    - query: null
+  - intent: search
+    entities:
+    - query: current market trends
+    - query: economic indicators
+  - slot_was_set:
+    - query: economic indicators
+  - action: action_search
+  - slot_was_set:
+    - query: economic indicators
+  - intent: search
+    entities:
+    - query: news
+    - query: articles about the importance
+    - query: diversification in investing
+  - slot_was_set:
+    - query: diversification in investing
+  - intent: search
+    entities:
+    - query: news
+    - query: articles about the importance of diversification in investing
+  - intent: filter
+    entities:
+    - filtered_obj: orders
+    - criteria: new
+    - criteria: closed
+  - slot_was_set:
+    - filtered_obj: orders
+  - slot_was_set:
+    - criteria:
+      - new
+      - closed
+  - action: action_filter
+  - intent: filter
+    entities:
+    - criteria: new
+    - criteria: closed
+    - filtered_obj: placements
+  - slot_was_set:
+    - filtered_obj: placements
+  - slot_was_set:
+    - criteria:
+      - new
+      - closed
+  - action: action_filter
+  - intent: filter
+    entities:
+    - criteria: closed
+    - criteria: filled
+    - criteria: working
+    - stock_list: google
+    - stock_list: apple
+    - filtered_obj: orders
+  - slot_was_set:
+    - filtered_obj: orders
+  - slot_was_set:
+    - criteria:
+      - closed
+      - filled
+      - working
+  - slot_was_set:
+    - stock_list:
+      - google
+      - apple
+  - action: action_filter
+
+- story: interactive_story_1
+  steps:
+  - intent: filter
+    entities:
+    - filtered_obj: orders
+    - criteria: filled
+    - criteria: closed
+  - slot_was_set:
+    - filtered_obj: orders
+  - slot_was_set:
+    - criteria:
+      - filled
+      - closed
+  - action: action_filter
+  - intent: filter
+    entities:
+    - criteria: working
+    - criteria: paused
+    - criteria: closed
+    - filtered_obj: orders
+  - slot_was_set:
+    - filtered_obj: orders
+  - slot_was_set:
+    - criteria:
+      - working
+      - paused
+      - closed
+  - action: action_filter
+
+- story: interactive_story_1
+  steps:
+  - intent: search
+    entities:
+    - query: articles about trading
+  - slot_was_set:
+    - query: articles about trading
+  - action: action_search
+  - slot_was_set:
+    - query: articles about trading
+  - intent: search
+    entities:
+    - query: articles about
+    - query: trading
+  - slot_was_set:
+    - query: trading
+  - intent: search
+    entities:
+    - query: articles about the methods of trading
+  - intent: search
+    entities:
+    - query: videos about diversification in investing
+  - slot_was_set:
+    - query: videos about diversification in investing
+  - action: action_search
+  - slot_was_set:
+    - query: videos about diversification in investing
+  - intent: search
+    entities:
+    - query: portfolio management
+
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: action_other
+  - intent: navigate
+    entities:
+    - page: orders
+  - slot_was_set:
+    - page: orders
+  - action: action_navigate
+  - intent: navigate
+    entities:
+    - page: placements
+  - slot_was_set:
+    - page: placements
+  - action: action_navigate
+  - intent: filter
+    entities:
+    - criteria: working
+    - criteria: new
+    - criteria: closed
+    - filtered_obj: placements
+  - slot_was_set:
+    - filtered_obj: placements
+  - slot_was_set:
+    - criteria:
+      - working
+      - new
+      - closed
+  - action: action_filter
+  - intent: sell_stock
+  - action: action_sell_stock
+  - intent: sell_stock
+    entities:
+    - stock_number: '10'
+  - slot_was_set:
+    - stock_number: '10'
+  - action: action_sell_stock
+  - slot_was_set:
+    - stock_company: null
+  - slot_was_set:
+    - stock_number: '10'
+  - intent: sell_stock
+    entities:
+    - stock_company: nvidia
+  - slot_was_set:
+    - stock_company: nvidia
+  - action: action_sell_stock
+  - intent: search
+    entities:
+    - query: articles about trading
+  - slot_was_set:
+    - query: articles about trading
+  - intent: search
+    entities:
+    - query: videos about how to trade
+  - slot_was_set:
+    - query: videos about how to trade
+  - action: action_search
+  - slot_was_set:
+    - query: videos about how to trade
+  - intent: greet
+  - intent: nlu_fallback
+  - action: action_default_fallback
+  - intent: sell_stock
+    entities:
+    - query: loss
+  - intent: nlu_fallback
+    entities:
+    - query: loss
+  - action: action_default_fallback
+
+
+- story: Trigger the init action
+  steps:
+  - action: action_retrieve_data
+  - action: action_stock_price
+
+- story: interactive_story_1
+  steps:
+  - intent: stock_price
+    entities:
+    - stock_company: International Business Machines
+  - slot_was_set:
+    - stock_company: International Business Machines
+  - action: action_retrieve_data
+  - slot_was_set:
+    - stock_map:
+        CW: Cable & Wireless Ord 25P
+        EK: Eastman Kodak
+        IBM: International Business Machines
+        MSFT: Microsoft Corp.
+        AMR: American Airlines
+  - action: action_stock_price
+  - intent: stock_price
+    entities:
+    - stock_company: ibm
+  - slot_was_set:
+    - stock_company: ibm
+  - action: action_stock_price
+  - intent: stock_price
+    entities:
+    - stock_company: EK
+  - slot_was_set:
+    - stock_company: EK
+  - action: action_stock_price
+  - intent: stock_price
+    entities:
+    - stock_company: ibm
+  - slot_was_set:
+    - stock_company: ibm
+  - action: action_stock_price
+  - intent: stock_price
+    entities:
+    - stock_company: AMR
+  - slot_was_set:
+    - stock_company: AMR
+  - action: action_stock_price
